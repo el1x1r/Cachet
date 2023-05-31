@@ -12,7 +12,7 @@
 return [
     // Components
     'components' => [
-        'last_updated' => 'Last updated :timestamp',
+        'last_updated' => 'Last incident: :timestamp',
         'status'       => [
             0 => 'Unknown',
             1 => 'Operational',
