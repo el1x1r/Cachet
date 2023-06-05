@@ -67,6 +67,34 @@ class ComponentPresenter extends BasePresenter implements Arrayable
     }
 
     /**
+     * Total days formatted date time.
+     *
+     * @return null
+     */
+    public function days_until_formatted()
+    {
+        $lastIncident = $this->wrappedObject->incidents()->orderBy('occurred_at', 'desc')->first();
+        if($lastIncident) {
+            return app(DateFactory::class)->make($lastIncident->occurred_at)->diffForHumans();
+        }
+        return null;
+    }
+
+    /**
+     * Last incident date time.
+     *
+     * @return null
+     */
+    public function last_day_formatted()
+    {
+        $lastIncident = $this->wrappedObject->incidents()->orderBy('occurred_at', 'desc')->first();
+        if($lastIncident) {
+            return ucfirst(app(DateFactory::class)->make($lastIncident->occurred_at)->format($this->incidentDateFormat()));
+        }
+        return null;
+    }
+
+    /**
      * Convert the presenter instance to an array.
      *
      * @return string[]

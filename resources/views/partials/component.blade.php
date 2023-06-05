@@ -9,7 +9,9 @@
     <i class="ion ion-ios-help-outline help-icon" data-toggle="tooltip" data-title="{{ $component->description }}" data-container="body"></i>
     @endif
 
-    <div class="pull-right">
-        <small> <small class="label label-info" >{{ trans('cachet.components.last_updated', ['timestamp' => $component->updated_at_formatted]) }}</small></small>
+    @if($component->days_until_formatted)
+     <div class="pull-right">
+        <small><small class="label label-info" data-toggle="tooltip" title="{{ $component->last_day_formatted }}">{{ trans('cachet.components.last_updated', ['timestamp' => $component->days_until_formatted]) }}</small></small>
     </div>
+    @endif
 </li>
