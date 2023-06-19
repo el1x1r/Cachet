@@ -21,6 +21,10 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
+        'SocialiteProviders\Manager\SocialiteWasCalled' => [
+            'SocialiteProviders\Keycloak\KeycloakExtendSocialite@handle',
+            'SocialiteProviders\Azure\AzureExtendSocialite@handle',
+        ],
         'CachetHQ\Cachet\Bus\Events\ActionInterface' => [
             'CachetHQ\Cachet\Bus\Handlers\Events\ActionStorageHandler',
         ],
