@@ -37,7 +37,7 @@ class StatusPageRoutes
     public function map(Registrar $router)
     {
         $router->group([
-            'middleware' => ['ready', 'localize'],
+            'middleware' => ['auth', 'localize'],
         ], function (Registrar $router) {
             $router->get('/', [
                 'as'   => 'get:status-page',
