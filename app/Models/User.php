@@ -181,6 +181,22 @@ class User extends Authenticatable
     }
 
     /**
+     * Find or create email, or throw an exception.
+     *
+     * @param string   $token
+     *
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
+     *
+     * @return \CachetHQ\Cachet\Models\User
+     */
+    public static function findByEmail($email, $columns = ['*'])
+    {
+        $user = static::where('email', $email)->firstOrFail($columns);
+
+        return $user;
+    }
+
+    /**
      * Returns an API key.
      *
      * @return string
