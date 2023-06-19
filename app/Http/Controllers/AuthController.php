@@ -15,6 +15,8 @@ use CachetHQ\Cachet\Bus\Events\User\UserFailedTwoAuthEvent;
 use CachetHQ\Cachet\Bus\Events\User\UserLoggedInEvent;
 use CachetHQ\Cachet\Bus\Events\User\UserLoggedOutEvent;
 use CachetHQ\Cachet\Bus\Events\User\UserPassedTwoAuthEvent;
+use CachetHQ\Cachet\Bus\Commands\User\CreateUserCommand;
+use CachetHQ\Cachet\Models\User;
 use GrahamCampbell\Binput\Facades\Binput;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Arr;
@@ -23,6 +25,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
 use PragmaRX\Google2FA\Google2FA;
+use Socialite;
 
 class AuthController extends Controller
 {
@@ -135,10 +138,46 @@ class AuthController extends Controller
      */
     public function logoutAction()
     {
+        Auth::logout();
         event(new UserLoggedOutEvent(Auth::user()));
 
-        Auth::logout();
+        return redirect(Socialite::driver('azure')->getLogoutUrl(cachet_redirect('auth.login')));
+    }
 
-        return cachet_redirect('status-page');
+    /**
+     * Redirect the user to the authentication page provider.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function redirectToProvider()
+    {
+        return Socialite::driver('azure')
+            ->scopes(['openid', 'profile', 'email'])
+            ->redirect();
+    }
+
+    /**
+     * Obtain the user information from provider.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function handleProviderCallback()
+    {
+        $user = Socialite::driver('azure')->stateless()->user();
+        try{
+            $currentUser = execute(new CreateUserCommand(
+                $user->user['mailNickname'],
+                $user->id,
+                $user->email,
+                User::LEVEL_USER
+            ));
+        }catch(Exception $e) {
+            $currentUser = User::findByEmail($user->email);
+        }
+
+        Auth::loginUsingId($currentUser->id);
+        event(new UserLoggedInEvent(Auth::user()));
+
+        return Redirect::intended(cachet_route('dashboard'));
     }
 }

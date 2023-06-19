@@ -43,7 +43,13 @@ class AuthRoutes
             $router->get('login', [
                 'as'         => 'get:auth.login',
                 'middleware' => 'guest',
-                'uses'       => 'AuthController@showLogin',
+                'uses'       => 'AuthController@redirectToProvider',
+            ]);
+
+            $router->get('login/callback', [
+                'as'         => 'get:auth.login.callback',
+                'middleware' => 'guest',
+                'uses'       => 'AuthController@handleProviderCallback',
             ]);
 
             $router->post('login', [
