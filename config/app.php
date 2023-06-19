@@ -186,6 +186,7 @@ return [
         Jenssegers\Date\DateServiceProvider::class,
         Laravel\Tinker\TinkerServiceProvider::class,
         McCool\LaravelAutoPresenter\AutoPresenterServiceProvider::class,
+        SocialiteProviders\Manager\ServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -249,6 +250,7 @@ return [
         'View'         => Illuminate\Support\Facades\View::class,
         'Binput'       => GrahamCampbell\Binput\Facades\Binput::class,
         'Str'          => Illuminate\Support\Str::class,
+        'Socialite'    => Laravel\Socialite\Facades\Socialite::class,
 
     ],
 
