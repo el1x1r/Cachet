@@ -52,23 +52,6 @@ class AuthRoutes
                 'uses'       => 'AuthController@handleProviderCallback',
             ]);
 
-            $router->post('login', [
-                'as'         => 'post:auth.login',
-                'middleware' => ['guest', 'throttle:10,10'],
-                'uses'       => 'AuthController@postLogin',
-            ]);
-
-            $router->get('2fa', [
-                'as'   => 'get:auth.two-factor',
-                'uses' => 'AuthController@showTwoFactorAuth',
-            ]);
-
-            $router->post('2fa', [
-                'as'         => 'post:auth.two-factor',
-                'middleware' => ['throttle:10,10'],
-                'uses'       => 'AuthController@postTwoFactor',
-            ]);
-
             $router->get('logout', [
                 'as'         => 'get:auth.logout',
                 'uses'       => 'AuthController@logoutAction',
