@@ -175,6 +175,7 @@ class Incident extends Model implements HasPresenter
     protected $with = [
         'meta',
         'updates',
+        'user',
     ];
 
     /**

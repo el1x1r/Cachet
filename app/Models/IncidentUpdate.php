@@ -75,6 +75,15 @@ class IncidentUpdate extends Model implements HasPresenter
     ];
 
     /**
+     * The relations to eager load on every query.
+     *
+     * @var string[]
+     */
+    protected $with = [
+        'user',
+    ];
+
+    /**
      * Get the incident relation.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
