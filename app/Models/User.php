@@ -119,6 +119,9 @@ class User extends Authenticatable
         parent::boot();
 
         self::creating(function ($user) {
+            $user->email = strtolower($user->email);
+            $user->username = strtolower($user->username);
+
             if (!$user->api_key) {
                 $user->api_key = self::generateApiKey();
             }
