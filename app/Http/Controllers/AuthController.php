@@ -172,7 +172,7 @@ class AuthController extends Controller
                 User::LEVEL_USER
             ));
         }catch(Exception $e) {
-            $currentUser = User::findByEmail($user->email);
+            $currentUser = User::findByEmail(strtolower($user->email));
         }
 
         Auth::loginUsingId($currentUser->id);
