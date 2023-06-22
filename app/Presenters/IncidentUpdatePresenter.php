@@ -161,6 +161,16 @@ class IncidentUpdatePresenter extends BasePresenter implements Arrayable
     }
 
     /**
+     * Return username by incident update
+     *
+     * @return string
+     */
+    public function created_by()
+    {
+        return $this->wrappedObject->user()->username;
+    }
+
+    /**
      * Convert the presenter instance to an array.
      *
      * @return string[]
@@ -168,6 +178,7 @@ class IncidentUpdatePresenter extends BasePresenter implements Arrayable
     public function toArray()
     {
         return array_merge($this->wrappedObject->toArray(), [
+            'created_by'       => $this->created_by(),
             'human_status' => $this->human_status(),
             'permalink'    => $this->permalink(),
             'created_at'   => $this->created_at(),
