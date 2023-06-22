@@ -297,6 +297,16 @@ class IncidentPresenter extends BasePresenter implements Arrayable
     }
 
     /**
+     * Return username by incident
+     *
+     * @return string
+     */
+    public function created_by()
+    {
+        return $this->wrappedObject->user()->username;
+    }
+
+    /**
      * Convert the presenter instance to an array.
      *
      * @return string[]
