@@ -14,8 +14,7 @@
                         <div class="panel-heading">
                             @if($currentUser->isAdmin)
                             <div class="pull-right btn-group">
-                                <a href="{{ cachet_route('dashboard.incidents.updates.create', ['id' => $incident->id]) }}" class="btn btn-default">Update status</a>
-                                <a href="{{ cachet_route('dashboard.incidents.delete', ['id' => $incident->id], 'delete') }}" class="btn btn-danger confirm-action" data-method='DELETE'>{{ trans('forms.delete') }}</a>
+                                <a href="{{ cachet_route('dashboard.incidents.updates.create', ['id' => $incident->id]) }}" class="btn btn-default">{{ trans('forms.update') }}</a>
                             </div>
                             @endif
                             @if($incident->component)

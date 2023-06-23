@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use PragmaRX\Google2FA\Google2FA;
 use Socialite;
 
@@ -164,20 +165,20 @@ class AuthController extends Controller
     public function handleProviderCallback()
     {
         $user = Socialite::driver('azure')->stateless()->user();
-        try{
+        try {
+            $currentUser = User::findByEmail(strtolower($user->email));
+        } catch (ModelNotFoundException $e) {
             $currentUser = execute(new CreateUserCommand(
                 $user->user['mailNickname'],
                 $user->id,
                 $user->email,
                 User::LEVEL_USER
             ));
-        }catch(Exception $e) {
-            $currentUser = User::findByEmail(strtolower($user->email));
         }
 
         Auth::loginUsingId($currentUser->id);
         event(new UserLoggedInEvent(Auth::user()));
 
-        return Redirect::intended(cachet_route('dashboard'));
+        return Redirect::intended(cachet_route('status-page'));
     }
 }
