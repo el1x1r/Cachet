@@ -26,38 +26,12 @@
                     <span class="label label-info">{{ $incidentCount }}</span>
                 </a>
             </li>
-            <li {!! set_active('dashboard/templates*') !!}>
-                <a href="{{ cachet_route('dashboard.templates') }}">
-                    <i class="ion ion-ios-paper-outline"></i>
-                    <span>{{ trans('dashboard.incidents.incident-templates') }}</span>
-                    <span class="label label-info">{{ $incidentTemplateCount }}</span>
-                </a>
-            </li>
-            <li {!! set_active('dashboard/schedule*') !!}>
-                <a href="{{ cachet_route('dashboard.schedule') }}">
-                    <i class="ion ion-android-calendar"></i>
-                    <span>{{ trans('dashboard.schedule.schedule') }}</span>
-                    <span class="label label-info">{{ $scheduleCount }}</span>
-                </a>
-            </li>
+            @if($currentUser->isAdmin)
             <li {!! set_active('dashboard/components*') !!}>
                 <a href="{{ cachet_route('dashboard.components') }}">
                     <i class="ion ion-ios-browsers-outline"></i>
                     <span>{{ trans('dashboard.components.components') }}</span>
                     <span class="label label-info">{{ $componentCount }}</span>
-                </a>
-            </li>
-            <li {!! set_active('dashboard/metrics*') !!}>
-                <a href="{{ cachet_route('dashboard.metrics') }}">
-                    <i class="ion ion-ios-pie-outline"></i>
-                    <span>{{ trans('dashboard.metrics.metrics') }}</span>
-                </a>
-            </li>
-            <li {!! set_active('dashboard/subscribers*') !!}>
-                <a href="{{ cachet_route('dashboard.subscribers') }}">
-                    <i class="ion ion-ios-email-outline"></i>
-                    <span>{{ trans('dashboard.subscribers.subscribers') }}</span>
-                    <span class="label label-info">{{ $subscriberCount }}</span>
                 </a>
             </li>
             <li {!! set_active('dashboard/team*') !!}>
@@ -74,6 +48,7 @@
                     </span>
                 </a>
             </li>
+            @endif
             <li class="hidden-lg hidden-md">
                 <a href="{{ cachet_route('auth.logout') }}">
                     <i class="ion ion-log-out"></i>
