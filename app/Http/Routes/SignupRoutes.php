@@ -37,7 +37,7 @@ class SignupRoutes
     public function map(Registrar $router)
     {
         $router->group([
-            'middleware' => ['ready', 'guest'],
+            'middleware' => ['lock'],
             'prefix'     => 'signup',
         ], function (Registrar $router) {
             $router->get('invite/{code}', [

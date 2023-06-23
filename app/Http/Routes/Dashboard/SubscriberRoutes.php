@@ -38,7 +38,7 @@ class SubscriberRoutes
     public function map(Registrar $router)
     {
         $router->group([
-            'middleware' => ['auth'],
+            'middleware' => ['lock'],
             'namespace'  => 'Dashboard',
             'prefix'     => 'dashboard/subscribers',
         ], function (Registrar $router) {
