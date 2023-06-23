@@ -16,9 +16,16 @@
             </div>
             <div class="col-sm-8">
                 <ul class="list-inline">
+                    @if($currentUser->isAdmin)
                     <li>
-                        <a class="btn btn-link" href="/logout">{{ trans('dashboard.logout') }}</a>
+                        <a class="btn btn-link" href="{{ cachet_route('dashboard') }}">{{ trans('dashboard.dashboard') }}</a>
                     </li>
+                    @endif
+                    @if($currentUser)
+                    <li>
+                        <a class="btn btn-link" href="{{ cachet_route('auth.logout') }}">{{ trans('dashboard.logout') }}</a>
+                    </li>
+                    @endif
                 </ul>
             </div>
         </div>
