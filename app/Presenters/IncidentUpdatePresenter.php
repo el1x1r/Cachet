@@ -167,7 +167,7 @@ class IncidentUpdatePresenter extends BasePresenter implements Arrayable
      */
     public function created_by()
     {
-        return $this->wrappedObject->user()->username;
+        return $this->wrappedObject->user()->first()->username;
     }
 
     /**

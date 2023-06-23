@@ -12,11 +12,9 @@
                 <div class="col-xs-10 col-xs-offset-2 col-sm-11 col-sm-offset-0">
                     <div class="panel panel-message incident">
                         <div class="panel-heading">
-                            @if($currentUser)
+                            @if($currentUser->isAdmin)
                             <div class="pull-right btn-group">
-                                @if($currentUser->isAdmin())
-                                <a href="{{ cachet_route('dashboard.incidents.edit', ['id' => $incident->id]) }}" class="btn btn-default">{{ trans('forms.edit') }}</a>
-                                @endif
+                                <a href="{{ cachet_route('dashboard.incidents.updates.create', ['id' => $incident->id]) }}" class="btn btn-default">Update status</a>
                                 <a href="{{ cachet_route('dashboard.incidents.delete', ['id' => $incident->id], 'delete') }}" class="btn btn-danger confirm-action" data-method='DELETE'>{{ trans('forms.delete') }}</a>
                             </div>
                             @endif
@@ -25,8 +23,8 @@
                             @endif
                             <strong>{{ $incident->name }}</strong>{{ $incident->isScheduled ? trans("cachet.incidents.scheduled_at", ["timestamp" => $incident->scheduled_at_diff]) : null }}
                             <br>
-                            <i>{{ $incident->created_by }}</i>
                             <small class="date">
+                                posted by {{ $incident->created_by }}
                                 <a href="{{ cachet_route('incident', ['id' => $incident->id]) }}" class="links"><abbr class="timeago" data-toggle="tooltip" data-placement="right" title="{{ $incident->timestamp_formatted }}" data-timeago="{{ $incident->timestamp_iso }}"></abbr></a>
                             </small>
                         </div>
@@ -38,15 +36,14 @@
                             @foreach($incident->updates as $update)
                             <li class="list-group-item incident-update-item">
                                 <i class="{{ $update->icon }}" title="{{ $update->human_status }}" data-toggle="tooltip"></i>
-                                <i>{{ $update->created_by }}</i>
+                                {!! $update->formatted_message !!}
                                 <small>
+                                    <i>by {{ $update->created_by }}</i>
                                     <abbr class="timeago links" data-toggle="tooltip"
                                         data-placement="right" title="{{ $update->timestamp_formatted }}"
                                         data-timeago="{{ $update->timestamp_iso }}">
                                     </abbr>
                                 </small>
-                                <a href="{{ $update->permalink }}" class="pull-right"><span class="ion-ios-arrow-right"></span></a>
-
                             </li>
                             @endforeach
                         </div>
