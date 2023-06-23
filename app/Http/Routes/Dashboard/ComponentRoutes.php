@@ -38,7 +38,7 @@ class ComponentRoutes
     public function map(Registrar $router)
     {
         $router->group([
-            'middleware' => ['auth'],
+            'middleware' => ['auth', 'admin'],
             'namespace'  => 'Dashboard',
             'prefix'     => 'dashboard/components',
         ], function (Registrar $router) {

@@ -64,11 +64,12 @@ class IncidentRoutes
                 'as'   => 'post:dashboard.incidents.edit',
                 'uses' => 'IncidentController@editIncidentAction',
             ]);
-            $router->delete('{incident}', [
-                'as'   => 'delete:dashboard.incidents.delete',
-                'uses' => 'IncidentController@deleteIncidentAction',
-            ]);
-
+            $router->group(['middleware' => 'admin'], function (Registrar $router) {
+                $router->delete('{incident}', [
+                    'as'   => 'delete:dashboard.incidents.delete',
+                    'uses' => 'IncidentController@deleteIncidentAction',
+                ]);
+            });
             $router->get('{incident}/updates', [
                 'as'   => 'get:dashboard.incidents.updates',
                 'uses' => 'IncidentUpdateController@showIncidentUpdates',
