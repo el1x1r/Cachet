@@ -37,7 +37,7 @@ class SubscribeRoutes
     public function map(Registrar $router)
     {
         $router->group([
-            'middleware' => ['ready', 'localize', 'subscribers'],
+            'middleware' => ['lock', 'localize', 'subscribers'],
         ], function (Registrar $router) {
             $router->get('subscribe', [
                 'as'   => 'get:subscribe',

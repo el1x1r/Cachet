@@ -38,7 +38,7 @@ class ScheduleRoutes
     public function map(Registrar $router)
     {
         $router->group([
-            'middleware' => ['auth'],
+            'middleware' => ['lock'],
             'namespace'  => 'Dashboard',
             'prefix'     => 'dashboard/schedule',
         ], function (Registrar $router) {

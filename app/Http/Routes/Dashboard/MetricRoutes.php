@@ -38,7 +38,7 @@ class MetricRoutes
     public function map(Registrar $router)
     {
         $router->group([
-            'middleware' => ['auth'],
+            'middleware' => ['lock'],
             'namespace'  => 'Dashboard',
             'prefix'     => 'dashboard/metrics',
         ], function (Registrar $router) {
