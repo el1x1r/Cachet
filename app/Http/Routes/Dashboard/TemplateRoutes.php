@@ -38,7 +38,7 @@ class TemplateRoutes
     public function map(Registrar $router)
     {
         $router->group([
-            'middleware' => ['auth', 'admin'],
+            'middleware' => ['lock'],
             'namespace'  => 'Dashboard',
             'prefix'     => 'dashboard/templates',
         ], function (Registrar $router) {
