@@ -51,10 +51,12 @@ class UserRoutes
                 'uses' => 'UserController@postUser',
             ]);
 
-            $router->get('{user}/api/regen', [
-                'as'   => 'get:dashboard.user.api.regen',
-                'uses' => 'UserController@regenerateApiKey',
-            ]);
+            $router->group(['middleware' => 'admin'], function (Registrar $router) {
+                $router->get('{user}/api/regen', [
+                    'as'   => 'get:dashboard.user.api.regen',
+                    'uses' => 'UserController@regenerateApiKey',
+                ]);
+            });
         });
     }
 }
