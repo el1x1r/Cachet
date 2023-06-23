@@ -33,7 +33,9 @@
                         <div class="col-xs-6 text-right">
                             <a href="{{ cachet_route('dashboard.incidents.updates', [$incident->id]) }}" class="btn btn-info">{{ trans('forms.manage_updates') }}</a>
                             <a href="{{ cachet_route('dashboard.incidents.edit', [$incident->id]) }}" class="btn btn-default">{{ trans('forms.edit') }}</a>
+                            @if($currentUser->isAdmin)
                             <a href="{{ cachet_route('dashboard.incidents.delete', [$incident->id], 'delete') }}" class="btn btn-danger confirm-action" data-method='DELETE'>{{ trans('forms.delete') }}</a>
+                            @endif
                         </div>
                     </div>
                     @endforeach
