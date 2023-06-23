@@ -24,6 +24,7 @@ use CachetHQ\Cachet\Http\Middleware\SetupAlreadyCompleted;
 use CachetHQ\Cachet\Http\Middleware\SubscribersConfigured;
 use CachetHQ\Cachet\Http\Middleware\Throttler;
 use CachetHQ\Cachet\Http\Middleware\TrustProxies;
+use CachetHQ\Cachet\Http\Middleware\Lock;
 use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 use Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode;
@@ -61,5 +62,6 @@ class Kernel extends HttpKernel
         'signed'          => ValidateSignature::class,
         'subscribers'     => SubscribersConfigured::class,
         'throttle'        => Throttler::class,
+        'lock'            => Lock::class,
     ];
 }
