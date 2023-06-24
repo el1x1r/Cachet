@@ -19,6 +19,7 @@ use CachetHQ\Cachet\Bus\Commands\User\CreateUserCommand;
 use CachetHQ\Cachet\Models\User;
 use GrahamCampbell\Binput\Facades\Binput;
 use Illuminate\Routing\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -135,14 +136,19 @@ class AuthController extends Controller
     /**
      * Logs the user out, deleting their session etc.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function logoutAction()
+    public function logoutAction(Request $request)
     {
-        Auth::logout();
+        $azureConfig = config('services.azure');
+        $logoutUrl = ($azureConfig['logout_url']).http_build_query([
+            'post_logout_redirect_uri' => cachet_route('status-page')
+        ]);
         event(new UserLoggedOutEvent(Auth::user()));
-
-        return redirect(Socialite::driver('azure')->getLogoutUrl(cachet_redirect('auth.login')));
+        $request->session()->flush();
+        Auth::logout();
+        return redirect($logoutUrl);
     }
 
     /**
