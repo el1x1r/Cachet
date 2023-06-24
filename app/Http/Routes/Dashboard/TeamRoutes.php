@@ -47,7 +47,7 @@ class TeamRoutes
                 'uses' => 'TeamController@showTeamView',
             ]);
 
-            $router->group(['middleware' => 'admin'], function (Registrar $router) {
+            $router->group(['middleware' => 'lock'], function (Registrar $router) {
                 $router->get('create', [
                     'as'   => 'get:dashboard.team.create',
                     'uses' => 'TeamController@showAddTeamMemberView',
