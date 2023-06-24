@@ -5,27 +5,21 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-4">
-                @if($showSupport)
-                <p>
-                    {!! trans('cachet.powered_by') !!}
-                    @if($showTimezone)
-                    {{ trans('cachet.timezone', ['timezone' => $timezone]) }}
-                    @endif
-                </p>
-                @endif
+                <b>Hi, {{ $currentUser->username }}</b>
             </div>
             <div class="col-sm-8">
                 <ul class="list-inline">
-                    @if($currentUser->isAdmin)
+                    @if($currentUser)
                     <li>
                         <a class="btn btn-link" href="{{ cachet_route('dashboard') }}">{{ trans('dashboard.dashboard') }}</a>
                     </li>
-                    @endif
-                    @if($currentUser)
                     <li>
                         <a class="btn btn-link" href="{{ cachet_route('auth.logout') }}">{{ trans('dashboard.logout') }}</a>
                     </li>
                     @endif
+                    <li>
+                        <a class="btn btn-link" href="#top">Back to top</a>
+                    </li>
                 </ul>
             </div>
         </div>
